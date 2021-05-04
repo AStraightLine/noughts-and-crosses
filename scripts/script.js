@@ -102,57 +102,54 @@ const GameController = (() => {
     }
 
     const _checkVictory = () => {
-
-        // Check victory conditions: against 'X'
-        if (GameBoard.gameBoard[0].value === 'X' && GameBoard.gameBoard[1].value === 'X' && GameBoard.gameBoard[2].value === 'X') {
-            _resolveGame('X');
-        }
-        if (GameBoard.gameBoard[3].value === 'X' && GameBoard.gameBoard[4].value === 'X' && GameBoard.gameBoard[5].value === 'X') {
-            _resolveGame('X');
-        }
-        if (GameBoard.gameBoard[6].value === 'X' && GameBoard.gameBoard[7].value === 'X' && GameBoard.gameBoard[8].value === 'X') {
-            _resolveGame('X');
-        }
-        if (GameBoard.gameBoard[0].value === 'X' && GameBoard.gameBoard[3].value === 'X' && GameBoard.gameBoard[6].value === 'X') {
-            _resolveGame('X');
-        }
-        if (GameBoard.gameBoard[1].value === 'X' && GameBoard.gameBoard[4].value === 'X' && GameBoard.gameBoard[7].value === 'X') {
-            _resolveGame('X');
-        }
-        if (GameBoard.gameBoard[2].value === 'X' && GameBoard.gameBoard[5].value === 'X' && GameBoard.gameBoard[8].value === 'X') {
-            _resolveGame('X');
-        }
-        if (GameBoard.gameBoard[0].value === 'X' && GameBoard.gameBoard[4].value === 'X' && GameBoard.gameBoard[8].value === 'X') {
-            _resolveGame('X');
-        }
-        if (GameBoard.gameBoard[6].value === 'X' && GameBoard.gameBoard[4].value === 'X' && GameBoard.gameBoard[2].value === 'X') {
-            _resolveGame('X');
+        
+        // Check victory conditions
+        if(!(GameBoard.gameBoard[0].value == '') && // Make sure not equal because equally empty
+            GameBoard.gameBoard[0].value == GameBoard.gameBoard[1].value &&
+            GameBoard.gameBoard[1].value == GameBoard.gameBoard[2].value) {
+            _resolveGame(GameBoard.gameBoard[0].value);
         }
 
-        // Check victory conditions against 'O'
-        if (GameBoard.gameBoard[0].value === 'O' && GameBoard.gameBoard[1].value === 'O' && GameBoard.gameBoard[2].value === 'O') {
-            _resolveGame('O');
+        if(!(GameBoard.gameBoard[3].value == '') &&
+            GameBoard.gameBoard[3].value == GameBoard.gameBoard[4].value &&
+            GameBoard.gameBoard[4].value == GameBoard.gameBoard[5].value) {
+            _resolveGame(GameBoard.gameBoard[3].value);
         }
-        if (GameBoard.gameBoard[3].value === 'O' && GameBoard.gameBoard[4].value === 'O' && GameBoard.gameBoard[5].value === 'O') {
-            _resolveGame('O');
+
+        if(!(GameBoard.gameBoard[6].value == '') &&
+            GameBoard.gameBoard[6].value == GameBoard.gameBoard[7].value &&
+            GameBoard.gameBoard[7].value == GameBoard.gameBoard[8].value) {
+            _resolveGame(GameBoard.gameBoard[6].value);
         }
-        if (GameBoard.gameBoard[6].value === 'O' && GameBoard.gameBoard[7].value === 'O' && GameBoard.gameBoard[8].value === 'O') {
-            _resolveGame('O');
+
+        if(!(GameBoard.gameBoard[0].value == '') &&
+            GameBoard.gameBoard[0].value == GameBoard.gameBoard[3].value && 
+            GameBoard.gameBoard[3].value == GameBoard.gameBoard[6].value) {
+            _resolveGame(GameBoard.gameBoard[0].value);
         }
-        if (GameBoard.gameBoard[0].value === 'O' && GameBoard.gameBoard[3].value === 'O' && GameBoard.gameBoard[6].value === 'O') {
-            _resolveGame('O');
+
+        if(!(GameBoard.gameBoard[1].value == '') &&
+            GameBoard.gameBoard[1].value == GameBoard.gameBoard[4].value &&
+            GameBoard.gameBoard[4].value == GameBoard.gameBoard[7].value) {
+            _resolveGame(GameBoard.gameBoard[1].value);
         }
-        if (GameBoard.gameBoard[1].value === 'O' && GameBoard.gameBoard[4].value === 'O' && GameBoard.gameBoard[7].value === 'O') {
-            _resolveGame('O');
+
+        if(!(GameBoard.gameBoard[2].value == '') &&
+            GameBoard.gameBoard[2].value == GameBoard.gameBoard[5].value &&
+            GameBoard.gameBoard[5].value == GameBoard.gameBoard[8].value) {
+            _resolveGame(GameBoard.gameBoard[2].value);
         }
-        if (GameBoard.gameBoard[2].value === 'O' && GameBoard.gameBoard[5].value === 'O' && GameBoard.gameBoard[8].value === 'O') {
-            _resolveGame('O');
+
+        if(!(GameBoard.gameBoard[0].value == '') &&
+            GameBoard.gameBoard[0].value == GameBoard.gameBoard[4].value && 
+            GameBoard.gameBoard[4].value == GameBoard.gameBoard[8].value) {
+            _resolveGame(GameBoard.gameBoard[0].value);
         }
-        if (GameBoard.gameBoard[0].value === 'O' && GameBoard.gameBoard[4].value === 'O' && GameBoard.gameBoard[8].value === 'O') {
-            _resolveGame('O');
-        }
-        if (GameBoard.gameBoard[6].value === 'O' && GameBoard.gameBoard[4].value === 'O' && GameBoard.gameBoard[2].value === 'O') {
-            _resolveGame('O');
+
+        if(!(GameBoard.gameBoard[6].value == '') &&
+            GameBoard.gameBoard[6].value == GameBoard.gameBoard[4].value &&
+            GameBoard.gameBoard[4].value == GameBoard.gameBoard[2].value) {
+            _resolveGame(GameBoard.gameBoard[6].value);
         }
     }
 

@@ -4,7 +4,8 @@ The Odin Project - JavaScript Pathway - Project 2: Tic Tac Toe (Noughts and Cros
 2. Finished initial styling, 
 3. Implemented functionality for user selection of game symbol and game reset on selection. 
 4. Implement user selection of board squares and ability to clear the board. 
-5. Implemented crude victory condition checking and draw detection. 
+5. Implemented crude victory condition checking and draw detection.
+6. Slightly cleaned up victory condiiton checking. 
 
 TODO: 
 
