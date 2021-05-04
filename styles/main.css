@@ -13,7 +13,7 @@ button {
 
 header {
     width: 100vw;
-    height: 18vh;
+    height: 125px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -22,49 +22,72 @@ header {
 h1 {
     width: auto;
     text-align: center;
-    font-size: 2.5vw;
-    font-weight: 500;
+    font-size: 32px;
+    font-weight: 600;
 }
 
 #gameArea {
     width: 100vw;
-    height: 82vh;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 #symbolSelectContainer {
-    width: 22.5vw;
-    height: 5vh;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin-bottom: 3vh;
+    margin-bottom: 25px;
 }
 
 .symbolButton {
-    width: 6vw;
-    height: 4vh;
-    min-width: 3vw;
-    min-height: 2vh;
-    font-size: 1.5vw;
-    line-height: 1.5vw;
+    width: 4.5em;
+    height: 1.5em;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 100%;
+    border: 1px solid grey;
+    background-color: white;
+    border-radius: 10px;
+    margin-right: 15px;
+    margin-left: 15px;
+    filter: drop-shadow(0.1em 0.1em 0.1em rgba(25, 25, 25, 0.3));
+}
+
+.selectedSymbol {
+    border: 2px solid black;
+    filter: drop-shadow(0.1em 0.1em 0.1em rgba(0, 0, 0, 0.8));
 }
 
 #difficultySelectContainer {
     width: auto;
-    height: 5vh;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin-bottom: 3vh;
+    margin-bottom: 25px;
 }
 
 #difficultySelect {
-    width: 14vw;
+    width: 200px;
+    border: none;
+    border-bottom: 2px solid #363636;
+    font-size: 16px;
+}
+
+#resetButton {
+    width: 4.5em;
+    height: 1.5em;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 100%;
+    border: 1px solid grey;
+    background-color: white;
+    border-radius: 10px;
+    margin-right: 15px;
+    margin-left: 15px;
+    filter: drop-shadow(0.1em 0.1em 0.1em rgba(25, 25, 25, 0.3)); 
 }
 
 #gameContainer {
@@ -72,7 +95,8 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 3vh;
+    margin-bottom: 25px;
+    filter: drop-shadow(0.3em 0.3em 0.3em rgba(25, 25, 25, 0.3));
 }
 
 #board {
@@ -91,6 +115,10 @@ h1 {
     height: 75px;
     border: none;
     background-color: white;
+    font-size: 25px;
+    font-weight: 600;
+    line-height: 100%;
+    text-align: center;
 }
 
 #boardSquare0 {
