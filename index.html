@@ -5,10 +5,34 @@
         <link href="styles/main.css" rel="stylesheet">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
         <title>Document</title>
     </head>
     <body>
-
+        <header>
+            <h1>
+                Noughts and Crosses
+            </h1>
+        </header>
+        <div id="gameArea">
+            <div id="difficultySelectContainer">
+                <select name="difficultySelect" id="difficultySelect">
+                    <option class="difficultyOption" value="easy">Easy</option>
+                    <option class="difficultyOption" value="medium">Medium</option>
+                    <option class="difficultyOption" value="hard">Hard</option>
+                    <option class="difficultyOption" value="Impossible">Impossible</option>
+                </select>
+            </div>
+            <div id="symbolSelectContainer">
+                <button type="button" id="crossesSelectButton" class="symbolButton" value='X'>X</button>
+                <button type="button" id="noughtsSelectButton" class="symbolButton" value='O'>O</button>
+            </div>
+            <div id="gameContainer">
+                <div id="board"></div>
+            </div>
+            <button type="button" id="resetButton">Reset</button>
+        </div>
         <script src="scripts/script.js" type="text/javascript"></script>    
     </body>
 </html>

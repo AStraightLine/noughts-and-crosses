@@ -1,0 +1,146 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+button {
+    font-family: 'Open Sans', sans-serif;
+}
+
+header {
+    width: 100vw;
+    height: 18vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    width: auto;
+    text-align: center;
+    font-size: 2.5vw;
+    font-weight: 500;
+}
+
+#gameArea {
+    width: 100vw;
+    height: 82vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#symbolSelectContainer {
+    width: 22.5vw;
+    height: 5vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 3vh;
+}
+
+.symbolButton {
+    width: 6vw;
+    height: 4vh;
+    min-width: 3vw;
+    min-height: 2vh;
+    font-size: 1.5vw;
+    line-height: 1.5vw;
+}
+
+#difficultySelectContainer {
+    width: auto;
+    height: 5vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 3vh;
+}
+
+#difficultySelect {
+    width: 14vw;
+}
+
+#gameContainer {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 3vh;
+}
+
+#board {
+    align-self: flex-start;
+    width: auto;
+    height: auto;
+    display: grid;
+    grid-template-columns: 75px 75px 75px;
+    grid-template-rows: 75px 75px 75px;
+    justify-content: center;
+    align-content: center;
+}
+
+.boardSquare {
+    width: 75px;
+    height: 75px;
+    border: none;
+    background-color: white;
+}
+
+#boardSquare0 {
+    border-left: 1px solid black;
+    border-top: 1px solid black;
+    border-right: 1px solid black;
+}
+
+#boardSquare1 {
+    border-top: 1px solid black;
+}
+
+#boardSquare2 {
+    border-left: 1px solid black;
+    border-top: 1px solid black;
+    border-right: 1px solid black;
+}
+
+#boardSquare3 {
+    border-left: 1px solid black;
+    border-top: 1px solid black;
+    border-right: 1px solid black;
+}
+
+#boardSquare4 {
+    border-top: 1px solid black;
+}
+
+#boardSquare5 {
+    border-left: 1px solid black;
+    border-top: 1px solid black;
+    border-right: 1px solid black;
+}
+
+#boardSquare6 {
+    border-left: 1px solid black;
+    border-top: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+#boardSquare7 {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+#boardSquare8 {
+    border-left: 1px solid black;
+    border-top: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
