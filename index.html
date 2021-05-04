@@ -17,7 +17,7 @@
         </header>
         <div id="gameArea">
             <div id="difficultySelectContainer">
-                <select name="difficultySelect" id="difficultySelect">
+                <select onchange="GameController.setDifficulty(this)" name="difficultySelect" id="difficultySelect">
                     <option class="difficultyOption" value="easy">Easy</option>
                     <option class="difficultyOption" value="medium">Medium</option>
                     <option class="difficultyOption" value="hard">Hard</option>

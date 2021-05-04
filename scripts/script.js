@@ -2,8 +2,25 @@
 const GameBoard = (() => {
     let gameBoard = [];
 
+    const setSelectedValue = (button) => {
+        button.value = button.textContent;
+    }
+
+    const setAISelectedValue = (selection) => {
+        gameBoard[selection].value = aiPlayer.getSymbol();
+    }
+
+    const clearValues = () => {
+        for (let i = 0; i < 9; i++) {
+            gameBoard[i].value = '';
+        }
+    }
+
     return {
         gameBoard,
+        setSelectedValue,
+        clearValues,
+        setAISelectedValue,
     };
 })();
 
@@ -36,6 +53,10 @@ const DisplayController = (() => {
         button.textContent = userPlayer.getSymbol();
     };
 
+    const aiSelected = (gameBoard, selection) => {
+        gameBoard[selection].textContent = aiPlayer.getSymbol();
+    }
+
     const displayUserSymbolSelection = () => {
         if (userPlayer.getSymbol() === 'X') {
             _crossesButton.classList.add('selectedSymbol');
@@ -51,27 +72,157 @@ const DisplayController = (() => {
         clearBoard,
         displayUserSymbolSelection,
         squareSelected,
+        aiSelected,
     }
 })();
 
 // For functionality relating to the flow of game play.
 const GameController = (() => {
 
+    let _difficulty = '';
+    let _resolved = false;
+
     const initGame = () => {
         DisplayController.populateNewBoard(GameBoard.gameBoard);
+        setDifficulty(difficultySelect);
+    }
+
+    const setDifficulty = (option) => {
+        _difficulty = option.value;
+        resetHandler();
+    }
+
+    // Find winner when victory conditions met
+    const _resolveGame = (winningSymbol) => {
+        // Test
+        console.log("Someone won");
+        // Decide who's won
+        // Flag game as resolved.
+        _resolved = true;
+    }
+
+    const _checkVictory = () => {
+
+        // Check victory conditions: against 'X'
+        if (GameBoard.gameBoard[0].value === 'X' && GameBoard.gameBoard[1].value === 'X' && GameBoard.gameBoard[2].value === 'X') {
+            _resolveGame('X');
+        }
+        if (GameBoard.gameBoard[3].value === 'X' && GameBoard.gameBoard[4].value === 'X' && GameBoard.gameBoard[5].value === 'X') {
+            _resolveGame('X');
+        }
+        if (GameBoard.gameBoard[6].value === 'X' && GameBoard.gameBoard[7].value === 'X' && GameBoard.gameBoard[8].value === 'X') {
+            _resolveGame('X');
+        }
+        if (GameBoard.gameBoard[0].value === 'X' && GameBoard.gameBoard[3].value === 'X' && GameBoard.gameBoard[6].value === 'X') {
+            _resolveGame('X');
+        }
+        if (GameBoard.gameBoard[1].value === 'X' && GameBoard.gameBoard[4].value === 'X' && GameBoard.gameBoard[7].value === 'X') {
+            _resolveGame('X');
+        }
+        if (GameBoard.gameBoard[2].value === 'X' && GameBoard.gameBoard[5].value === 'X' && GameBoard.gameBoard[8].value === 'X') {
+            _resolveGame('X');
+        }
+        if (GameBoard.gameBoard[0].value === 'X' && GameBoard.gameBoard[4].value === 'X' && GameBoard.gameBoard[8].value === 'X') {
+            _resolveGame('X');
+        }
+        if (GameBoard.gameBoard[6].value === 'X' && GameBoard.gameBoard[4].value === 'X' && GameBoard.gameBoard[2].value === 'X') {
+            _resolveGame('X');
+        }
+
+        // Check victory conditions against 'O'
+        if (GameBoard.gameBoard[0].value === 'O' && GameBoard.gameBoard[1].value === 'O' && GameBoard.gameBoard[2].value === 'O') {
+            _resolveGame('O');
+        }
+        if (GameBoard.gameBoard[3].value === 'O' && GameBoard.gameBoard[4].value === 'O' && GameBoard.gameBoard[5].value === 'O') {
+            _resolveGame('O');
+        }
+        if (GameBoard.gameBoard[6].value === 'O' && GameBoard.gameBoard[7].value === 'O' && GameBoard.gameBoard[8].value === 'O') {
+            _resolveGame('O');
+        }
+        if (GameBoard.gameBoard[0].value === 'O' && GameBoard.gameBoard[3].value === 'O' && GameBoard.gameBoard[6].value === 'O') {
+            _resolveGame('O');
+        }
+        if (GameBoard.gameBoard[1].value === 'O' && GameBoard.gameBoard[4].value === 'O' && GameBoard.gameBoard[7].value === 'O') {
+            _resolveGame('O');
+        }
+        if (GameBoard.gameBoard[2].value === 'O' && GameBoard.gameBoard[5].value === 'O' && GameBoard.gameBoard[8].value === 'O') {
+            _resolveGame('O');
+        }
+        if (GameBoard.gameBoard[0].value === 'O' && GameBoard.gameBoard[4].value === 'O' && GameBoard.gameBoard[8].value === 'O') {
+            _resolveGame('O');
+        }
+        if (GameBoard.gameBoard[6].value === 'O' && GameBoard.gameBoard[4].value === 'O' && GameBoard.gameBoard[2].value === 'O') {
+            _resolveGame('O');
+        }
     }
 
     const squareSelectHandler = (button) => {
         // Check if the square has already been selected by AI or User
         if (button.textContent === "") {
             DisplayController.squareSelected(button);
-        } else {
-            return;
+            GameBoard.setSelectedValue(button);
+
+            _checkVictory();
+
+            if (!_resolved) {
+                // Check if last square
+                let _squaresFilledCount = 0;
+
+                for (let i = 0; i < 9; i++) {
+                    if (!(GameBoard.gameBoard[i].textContent === "")) {
+                        _squaresFilledCount++;
+                    }
+                    if (_squaresFilledCount === 9) {
+                        // See all squares are filled, see who won and return without allowing computer to make a move.
+                        _checkVictory();
+                        // Check for draw
+                        if (!_resolved) {
+                            // Draw
+                            // Do something to let the user know and give them the option to reset.
+                            _resolved = true;
+                        }
+                        return;
+                    }
+                }
+
+                switch (_difficulty) {
+                    case 'easy':
+                        _makeAIMoveEasy();
+                        break;
+                    case 'medium':
+                        break;
+                    case 'hard':
+                        break;
+                    case 'impossible':
+                        break;
+                }
+
+                _checkVictory();
+                
+            } else {
+                return;
+            }
+        }
+    }
+
+    const _makeAIMoveEasy = () => {
+        // Loop until random lands on a square which hasn't been selected yet.
+        let selectionMade = false;
+        while (!selectionMade) {
+            let selection = Math.floor(Math.random() * 9);
+            if (GameBoard.gameBoard[selection].textContent === '') {
+                DisplayController.aiSelected(GameBoard.gameBoard, selection);
+                GameBoard.setAISelectedValue(selection);
+                selectionMade = true;
+            }
         }
     }
 
     const resetHandler = () => {
         DisplayController.clearBoard(GameBoard.gameBoard);
+        GameBoard.clearValues();
+        _resolved = false;
+        _squaresFilledCount = 0;
     }
 
     const symbolSelectionHandler = (button) => {
@@ -84,6 +235,7 @@ const GameController = (() => {
         }
         DisplayController.displayUserSymbolSelection();
         DisplayController.clearBoard(GameBoard.gameBoard);
+        resetHandler();
     }
 
     return {
@@ -91,6 +243,7 @@ const GameController = (() => {
         symbolSelectionHandler,
         squareSelectHandler,
         resetHandler,
+        setDifficulty,
     }
 
 })();
@@ -110,14 +263,16 @@ const Player = (symbol) => {
     }
 };
 
+const difficultySelect = document.getElementById('difficultySelect');
+const symbolSelectButtons = document.querySelectorAll('.symbolButton');
+
 const userPlayer = Player('X');
 const aiPlayer = Player('O');
 
 GameController.initGame();
 
-const symbolSelectButtons = document.querySelectorAll('.symbolButton');
-const resetButton = document.getElementById('resetButton');
 const boardSquares = document.querySelectorAll('.boardSquare');
+const resetButton = document.getElementById('resetButton');
 
 symbolSelectButtons.forEach((button) => {
     button.addEventListener('click', () => {
