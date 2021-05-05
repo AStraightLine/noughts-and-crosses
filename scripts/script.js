@@ -55,6 +55,7 @@ const DisplayController = (() => {
     };
 
     const aiSelected = (gameBoard, selection) => {
+        gameBoard[selection].classList.add('animate');
         gameBoard[selection].textContent = aiPlayer.getSymbol();
     }
 
@@ -73,7 +74,7 @@ const DisplayController = (() => {
     }
 
     const _highlightVictory = (roundWinner, winningCombination) => {
-        // apply appropriate class styling to board square combination which earned the win
+        // apply appropriate class styling to board square combination which earned the win // Possibility of being called twice
         for (let i = 0; i < winningCombination.length; i++) {
             if (roundWinner === 'user') {
                 let square = GameBoard.gameBoard[(winningCombination[i])];
@@ -85,15 +86,30 @@ const DisplayController = (() => {
         }
     }
 
-    const clearWinningComboClasses = (roundWinner, winningCombination) => {
-        for (let i = 0; i < winningCombination.length; i++) {
-            if (roundWinner === 'user') {
-                let square = GameBoard.gameBoard[(winningCombination[i])];
-                square.classList.remove('userWinningCombo');
-            } else if (roundWinner === 'ai') {
-                let square = GameBoard.gameBoard[(winningCombination[i])];
-                square.classList.remove('aiWinningCombo');
+    const drawHandler = (roundWinner) => {
+        if (roundWinner === 'draw') {
+            for (let i = 0; i < GameBoard.gameBoard.length; i++) {
+                GameBoard.gameBoard[i].classList.add('drawSquare');
             }
+        }
+    }
+
+    const clearWinningComboClasses = (roundWinner, winningCombination) => {
+        if (roundWinner === 'draw') {
+            for (let i = 0; i < GameBoard.gameBoard.length; i++) {
+                GameBoard.gameBoard[i].classList.remove('drawSquare');
+            }
+        } else {
+            for (let i = 0; i < GameBoard.gameBoard.length; i++) {
+                if (roundWinner === 'user') {
+                    GameBoard.gameBoard[i].classList.remove('userWinningCombo');
+                } else if (roundWinner === 'ai') {
+                    GameBoard.gameBoard[i].classList.remove('aiWinningCombo');
+                }
+            }
+        }
+        for (let i = 0; i < GameBoard.gameBoard.length; i++) {
+            GameBoard.gameBoard[i].classList.remove('animate');
         }
     }
 
@@ -105,6 +121,7 @@ const DisplayController = (() => {
         aiSelected,
         displayVictoryController,
         clearWinningComboClasses,
+        drawHandler,
     }
 })();
 
@@ -224,8 +241,8 @@ const GameController = (() => {
                         // Check for draw
                         if (!_resolved) {
                             // Draw
-                            // Do something to let the user know and give them the option to reset.
-                            console.log("it's a draw");
+                            roundWinner = 'draw';
+                            DisplayController.drawHandler(roundWinner);
                             _resolved = true;
                         }
                         return;
