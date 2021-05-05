@@ -214,44 +214,45 @@ const GameController = (() => {
         }
     }
 
+    const _checkDraw = () => {
+        if (!_resolved) {
+            // Check if last square
+            let _squaresFilledCount = 0;
+            for (let i = 0; i < 9; i++) {
+                if (!(GameBoard.gameBoard[i].textContent === "")) {
+                    _squaresFilledCount++;
+                }
+                if (_squaresFilledCount === 9) {
+                    // All squares are filled, who won or draw?
+                    _checkVictory();
+                    // Check for draw
+                    if (!_resolved) {
+                        // Draw
+                        roundWinner = 'draw';
+                        DisplayController.drawHandler(roundWinner);
+                        _resolved = true;
+                    }
+                }
+            }
+        }
+    }
+
     const squareSelectHandler = (button) => {
         // Don't let the user keep clicking when someone has won
         if (_resolved) {
             return;
         }
-
         // Check if the square has already been selected by AI or User
         if (button.textContent === "") {
             DisplayController.squareSelected(button);
             GameBoard.setSelectedValue(button);
 
             _checkVictory();
-
-            if (!_resolved) {
-                // Check if last square
-                let _squaresFilledCount = 0;
-
-                for (let i = 0; i < 9; i++) {
-                    if (!(GameBoard.gameBoard[i].textContent === "")) {
-                        _squaresFilledCount++;
-                    }
-                    if (_squaresFilledCount === 9) {
-                        // See all squares are filled, see who won and return without allowing computer to make a move.
-                        _checkVictory();
-                        // Check for draw
-                        if (!_resolved) {
-                            // Draw
-                            roundWinner = 'draw';
-                            DisplayController.drawHandler(roundWinner);
-                            _resolved = true;
-                        }
-                        return;
-                    }
-                }
-                aiMoveHandler();
-            } else {
-                return;
-            }
+        }
+        // Check for a draw following user's move
+        _checkDraw();
+        if(!_resolved) {
+            aiMoveHandler();
         }
     }
 
@@ -268,6 +269,7 @@ const GameController = (() => {
                 break;
         }
 
+        _checkDraw();
         _checkVictory();
     }
 
@@ -295,7 +297,7 @@ const GameController = (() => {
 
         // If user is 'noughts' AI goes first
         if (userPlayer.getSymbol() === 'O') {
-            GameController.aiMoveHandler();
+            aiMoveHandler();
         }
     }
 
