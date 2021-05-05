@@ -30,6 +30,7 @@ const DisplayController = (() => {
     const _board = document.getElementById('board');
     const _crossesButton = document.getElementById('crossesSelectButton');
     const _noughtsButton = document.getElementById('noughtsSelectButton');
+    const resetButton = document.getElementById('resetButton');
 
     const populateNewBoard = (gameBoard) => {
         for (let i = 0; i < 9; i++) {
@@ -67,12 +68,43 @@ const DisplayController = (() => {
         }
     };
 
+    const displayVictoryController = (roundWinner, winningCombination) => {
+        _highlightVictory(roundWinner, winningCombination);
+    }
+
+    const _highlightVictory = (roundWinner, winningCombination) => {
+        // apply appropriate class styling to board square combination which earned the win
+        for (let i = 0; i < winningCombination.length; i++) {
+            if (roundWinner === 'user') {
+                let square = GameBoard.gameBoard[(winningCombination[i])];
+                square.classList.add('userWinningCombo');
+            } else if (roundWinner === 'ai') {
+                let square = GameBoard.gameBoard[(winningCombination[i])];
+                square.classList.add('aiWinningCombo');
+            }
+        }
+    }
+
+    const clearWinningComboClasses = (roundWinner, winningCombination) => {
+        for (let i = 0; i < winningCombination.length; i++) {
+            if (roundWinner === 'user') {
+                let square = GameBoard.gameBoard[(winningCombination[i])];
+                square.classList.remove('userWinningCombo');
+            } else if (roundWinner === 'ai') {
+                let square = GameBoard.gameBoard[(winningCombination[i])];
+                square.classList.remove('aiWinningCombo');
+            }
+        }
+    }
+
     return {
         populateNewBoard,
         clearBoard,
         displayUserSymbolSelection,
         squareSelected,
         aiSelected,
+        displayVictoryController,
+        clearWinningComboClasses,
     }
 })();
 
@@ -81,6 +113,8 @@ const GameController = (() => {
 
     let _difficulty = '';
     let _resolved = false;
+    let roundWinner = '';
+    let winningCombination = [];
 
     const initGame = () => {
         DisplayController.populateNewBoard(GameBoard.gameBoard);
@@ -93,67 +127,82 @@ const GameController = (() => {
     }
 
     // Find winner when victory conditions met
-    const _resolveGame = (winningSymbol) => {
-        // Test
-        console.log("Someone won");
-        // Decide who's won
-        // Flag game as resolved.
+    const _resolveGame = (winningSymbol, winningCombination) => {
+        if (winningSymbol == userPlayer.getSymbol()) {
+            roundWinner = 'user';
+        } else if (winningSymbol == aiPlayer.getSymbol()) {
+            roundWinner = 'ai';
+        }
         _resolved = true;
+        DisplayController.displayVictoryController(roundWinner, winningCombination);
     }
 
     const _checkVictory = () => {
         
         // Check victory conditions
         if(!(GameBoard.gameBoard[0].value == '') && // Make sure not equal because equally empty
-            GameBoard.gameBoard[0].value == GameBoard.gameBoard[1].value &&
-            GameBoard.gameBoard[1].value == GameBoard.gameBoard[2].value) {
-            _resolveGame(GameBoard.gameBoard[0].value);
+                GameBoard.gameBoard[0].value == GameBoard.gameBoard[1].value &&
+                GameBoard.gameBoard[1].value == GameBoard.gameBoard[2].value) {
+            winningCombination = [0, 1, 2];
+            _resolveGame(GameBoard.gameBoard[0].value, winningCombination);
         }
 
         if(!(GameBoard.gameBoard[3].value == '') &&
-            GameBoard.gameBoard[3].value == GameBoard.gameBoard[4].value &&
-            GameBoard.gameBoard[4].value == GameBoard.gameBoard[5].value) {
-            _resolveGame(GameBoard.gameBoard[3].value);
+                GameBoard.gameBoard[3].value == GameBoard.gameBoard[4].value &&
+                GameBoard.gameBoard[4].value == GameBoard.gameBoard[5].value) {
+            winningCombination = [3, 4, 5];
+            _resolveGame(GameBoard.gameBoard[3].value, winningCombination);
         }
 
         if(!(GameBoard.gameBoard[6].value == '') &&
-            GameBoard.gameBoard[6].value == GameBoard.gameBoard[7].value &&
-            GameBoard.gameBoard[7].value == GameBoard.gameBoard[8].value) {
-            _resolveGame(GameBoard.gameBoard[6].value);
+                GameBoard.gameBoard[6].value == GameBoard.gameBoard[7].value &&
+                GameBoard.gameBoard[7].value == GameBoard.gameBoard[8].value) {
+            winningCombination = [6, 7, 8];
+            _resolveGame(GameBoard.gameBoard[6].value, winningCombination);
         }
 
         if(!(GameBoard.gameBoard[0].value == '') &&
-            GameBoard.gameBoard[0].value == GameBoard.gameBoard[3].value && 
-            GameBoard.gameBoard[3].value == GameBoard.gameBoard[6].value) {
-            _resolveGame(GameBoard.gameBoard[0].value);
+                GameBoard.gameBoard[0].value == GameBoard.gameBoard[3].value && 
+                GameBoard.gameBoard[3].value == GameBoard.gameBoard[6].value) {
+            winningCombination = [0, 3, 6];
+            _resolveGame(GameBoard.gameBoard[0].value, winningCombination);
         }
 
         if(!(GameBoard.gameBoard[1].value == '') &&
-            GameBoard.gameBoard[1].value == GameBoard.gameBoard[4].value &&
-            GameBoard.gameBoard[4].value == GameBoard.gameBoard[7].value) {
-            _resolveGame(GameBoard.gameBoard[1].value);
+                GameBoard.gameBoard[1].value == GameBoard.gameBoard[4].value &&
+                GameBoard.gameBoard[4].value == GameBoard.gameBoard[7].value) {
+            winningCombination = [1, 4, 7];
+            _resolveGame(GameBoard.gameBoard[1].value, winningCombination);
         }
 
         if(!(GameBoard.gameBoard[2].value == '') &&
-            GameBoard.gameBoard[2].value == GameBoard.gameBoard[5].value &&
-            GameBoard.gameBoard[5].value == GameBoard.gameBoard[8].value) {
-            _resolveGame(GameBoard.gameBoard[2].value);
+                GameBoard.gameBoard[2].value == GameBoard.gameBoard[5].value &&
+                GameBoard.gameBoard[5].value == GameBoard.gameBoard[8].value) {
+            winningCombination = [2, 5, 8];
+            _resolveGame(GameBoard.gameBoard[2].value, winningCombination);
         }
 
         if(!(GameBoard.gameBoard[0].value == '') &&
-            GameBoard.gameBoard[0].value == GameBoard.gameBoard[4].value && 
-            GameBoard.gameBoard[4].value == GameBoard.gameBoard[8].value) {
-            _resolveGame(GameBoard.gameBoard[0].value);
+                GameBoard.gameBoard[0].value == GameBoard.gameBoard[4].value && 
+                GameBoard.gameBoard[4].value == GameBoard.gameBoard[8].value) {
+            winningCombination = [0, 4, 8];
+            _resolveGame(GameBoard.gameBoard[0].value, winningCombination);
         }
 
         if(!(GameBoard.gameBoard[6].value == '') &&
-            GameBoard.gameBoard[6].value == GameBoard.gameBoard[4].value &&
-            GameBoard.gameBoard[4].value == GameBoard.gameBoard[2].value) {
-            _resolveGame(GameBoard.gameBoard[6].value);
+                GameBoard.gameBoard[6].value == GameBoard.gameBoard[4].value &&
+                GameBoard.gameBoard[4].value == GameBoard.gameBoard[2].value) {
+            winningCombination = [6, 4, 2];
+            _resolveGame(GameBoard.gameBoard[6].value, winningCombination);
         }
     }
 
     const squareSelectHandler = (button) => {
+        // Don't let the user keep clicking when someone has won
+        if (_resolved) {
+            return;
+        }
+
         // Check if the square has already been selected by AI or User
         if (button.textContent === "") {
             DisplayController.squareSelected(button);
@@ -176,30 +225,33 @@ const GameController = (() => {
                         if (!_resolved) {
                             // Draw
                             // Do something to let the user know and give them the option to reset.
+                            console.log("it's a draw");
                             _resolved = true;
                         }
                         return;
                     }
                 }
-
-                switch (_difficulty) {
-                    case 'easy':
-                        _makeAIMoveEasy();
-                        break;
-                    case 'medium':
-                        break;
-                    case 'hard':
-                        break;
-                    case 'impossible':
-                        break;
-                }
-
-                _checkVictory();
-                
+                aiMoveHandler();
             } else {
                 return;
             }
         }
+    }
+
+    const aiMoveHandler = () => {
+        switch (_difficulty) {
+            case 'easy':
+                _makeAIMoveEasy();
+                break;
+            case 'medium':
+                break;
+            case 'hard':
+                break;
+            case 'impossible':
+                break;
+        }
+
+        _checkVictory();
     }
 
     const _makeAIMoveEasy = () => {
@@ -216,10 +268,18 @@ const GameController = (() => {
     }
 
     const resetHandler = () => {
+        DisplayController.clearWinningComboClasses(roundWinner, winningCombination);
         DisplayController.clearBoard(GameBoard.gameBoard);
         GameBoard.clearValues();
         _resolved = false;
+        _roundWinner = '';
+        winningCombination = [];
         _squaresFilledCount = 0;
+
+        // If user is 'noughts' AI goes first
+        if (userPlayer.getSymbol() === 'O') {
+            GameController.aiMoveHandler();
+        }
     }
 
     const symbolSelectionHandler = (button) => {
@@ -241,6 +301,7 @@ const GameController = (() => {
         squareSelectHandler,
         resetHandler,
         setDifficulty,
+        aiMoveHandler,
     }
 
 })();

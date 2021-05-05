@@ -6,9 +6,9 @@ The Odin Project - JavaScript Pathway - Project 2: Tic Tac Toe (Noughts and Cros
 4. Implement user selection of board squares and ability to clear the board. 
 5. Implemented crude victory condition checking and draw detection.
 6. Slightly cleaned up victory condiiton checking. 
+7. Implemented victory display indication, AI moves first when user selects 'noughts', bug fixes.
 
 TODO: 
 
-. Implement decision on who will go first when symbol selection is made.
-    If AI, make AI move instantly. 
-. Display results and draw resolutions, push user towards resetting.
+. Draw resolution
+. AI difficulties
