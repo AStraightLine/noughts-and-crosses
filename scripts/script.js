@@ -441,49 +441,41 @@ const GameController = (() => {
 
         if (_checkPairs(aiPlayer.getSymbol())) {
             selection = _checkPairs(aiPlayer.getSymbol());
-            DisplayController.aiSelected(GameBoard.gameBoard, selection);
-            GameBoard.setAISelectedValue(selection);
-            _selectionMade = true;
         } else if (_checkPairs(userPlayer.getSymbol())) {
             selection = _checkPairs(userPlayer.getSymbol());
-            DisplayController.aiSelected(GameBoard.gameBoard, selection);
-            GameBoard.setAISelectedValue(selection);
-            _selectionMade = true;
         } else {
             while (!_selectionMade) {
                 selection = Math.floor(Math.random() * 9);
                 if (GameBoard.gameBoard[selection].textContent === '') {
-                    DisplayController.aiSelected(GameBoard.gameBoard, selection);
-                    GameBoard.setAISelectedValue(selection);
                     _selectionMade = true;
                 }
             }
         }
+        DisplayController.aiSelected(GameBoard.gameBoard, selection);
+        GameBoard.setAISelectedValue(selection);
     }
 
 
     // Check if user is close to a victory condition, block if so, else random move
     const _makeAIMoveMedium = () => {
         let _selectionMade = false;
-        let selection = _checkPairs(userPlayer.getSymbol());
+        let selection;
 
-        if (selection) {
+        if (_checkPairs(userPlayer.getSymbol())) {
             // If check pairs returns true, it has found that userPlayer is close to a win,
             // Move to block the win in the found pair.
-            DisplayController.aiSelected(GameBoard.gameBoard, selection);
-            GameBoard.setAISelectedValue(selection);
-            _selectionMade = true;
+            selection = _checkPairs(userPlayer.getSymbol())
         } else {
             // Make random move.
             while (!_selectionMade) {
                 selection = Math.floor(Math.random() * 9);
                 if (GameBoard.gameBoard[selection].textContent === '') {
-                    DisplayController.aiSelected(GameBoard.gameBoard, selection);
-                    GameBoard.setAISelectedValue(selection);
                     _selectionMade = true;
                 }
             }
         }
+        DisplayController.aiSelected(GameBoard.gameBoard, selection);
+        GameBoard.setAISelectedValue(selection);
     }
 
     // Random legal move
