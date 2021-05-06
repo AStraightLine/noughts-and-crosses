@@ -214,6 +214,166 @@ const GameController = (() => {
         }
     }
 
+    const _checkPairs = (symbol) => {
+        let _move;
+        let _testMove;
+
+        // Horizontal checks
+        if ((GameBoard.gameBoard[0].value == symbol) && (GameBoard.gameBoard[1].value == symbol)) {
+            _testMove = 2;
+            if (GameBoard.gameBoard[_testMove].textContent === '') {
+                _move = 2;
+            }
+        }
+        if ((GameBoard.gameBoard[0].value == symbol) && (GameBoard.gameBoard[2].value == symbol)) {
+            _testMove = 1;
+            if (GameBoard.gameBoard[_testMove].textContent === '') {
+                _move = 1;
+            }
+        }
+        if ((GameBoard.gameBoard[1].value == symbol) && (GameBoard.gameBoard[2].value == symbol)) {
+            _testMove = 0;
+            if (GameBoard.gameBoard[_testMove].textContent === '') {
+                _move = 0;
+            }
+        }
+        if ((GameBoard.gameBoard[3].value == symbol) && (GameBoard.gameBoard[4].value == symbol)) {
+            _testMove = 5;
+            if (GameBoard.gameBoard[_testMove].textContent === '') {
+                _move = 5;
+            }
+        }
+        if ((GameBoard.gameBoard[3].value == symbol) && (GameBoard.gameBoard[5].value == symbol)) {
+            _testMove = 4;
+            if (GameBoard.gameBoard[_testMove].textContent === '') {
+                _move = 4;
+            }
+        }
+        if ((GameBoard.gameBoard[4].value == symbol) && (GameBoard.gameBoard[5].value == symbol)) {
+            _testMove = 3;
+            if (GameBoard.gameBoard[_testMove].textContent === '') {
+                _move = 3;
+            }
+        }
+        if ((GameBoard.gameBoard[6].value == symbol) && (GameBoard.gameBoard[7].value == symbol)) {
+            _testMove = 8;
+            if (GameBoard.gameBoard[_testMove].textContent === '') {
+                _move = 8;
+            }
+        }
+        if ((GameBoard.gameBoard[6].value == symbol) && (GameBoard.gameBoard[8].value == symbol)) {
+            _testMove = 7;
+            if (GameBoard.gameBoard[_testMove].textContent === '') {
+                _move = 7;
+            }
+        }
+        if ((GameBoard.gameBoard[7].value == symbol) && (GameBoard.gameBoard[8].value == symbol)) {
+            _testMove = 6;
+            if (GameBoard.gameBoard[_testMove].textContent === '') {
+                _move = 6;
+            }
+        }
+        // Vertical checks
+        if ((GameBoard.gameBoard[0].value == symbol) && (GameBoard.gameBoard[3].value == symbol)) {
+            _testMove = 6;
+            if (GameBoard.gameBoard[_testMove].textContent === '') {
+                _move = 6;
+            }
+        }
+        if ((GameBoard.gameBoard[0].value == symbol) && (GameBoard.gameBoard[6].value == symbol)) {
+            _testMove = 3;
+            if (GameBoard.gameBoard[_testMove].textContent === '') {
+                _move = 3;
+            }
+        }
+        if ((GameBoard.gameBoard[3].value == symbol) && (GameBoard.gameBoard[6].value == symbol)) {
+            _testMove = 0;
+            if (GameBoard.gameBoard[_testMove].textContent === '') {
+                _move = 0;
+            }
+        }
+        if ((GameBoard.gameBoard[1].value == symbol) && (GameBoard.gameBoard[4].value == symbol)) {
+            _testMove = 7;
+            if (GameBoard.gameBoard[_testMove].textContent === '') {
+                _move = 7;
+            }
+        }
+        if ((GameBoard.gameBoard[1].value == symbol) && (GameBoard.gameBoard[7].value == symbol)) {
+            _testMove = 4;
+            if (GameBoard.gameBoard[_testMove].textContent === '') {
+                _move = 4;
+            }
+        }
+        if ((GameBoard.gameBoard[4].value == symbol) && (GameBoard.gameBoard[7].value == symbol)) {
+            _testMove = 1;
+            if (GameBoard.gameBoard[_testMove].textContent === '') {
+                _move = 1;
+            }
+        }
+        if ((GameBoard.gameBoard[2].value == symbol) && (GameBoard.gameBoard[5].value == symbol)) {
+            _testMove = 8;
+            if (GameBoard.gameBoard[_testMove].textContent === '') {
+                _move = 8;
+            }
+        }
+        if ((GameBoard.gameBoard[2].value == symbol) && (GameBoard.gameBoard[8].value == symbol)) {
+            _testMove = 5;
+            if (GameBoard.gameBoard[_testMove].textContent === '') {
+                _move = 5;
+            }
+        }
+        if ((GameBoard.gameBoard[5].value == symbol) && (GameBoard.gameBoard[8].value == symbol)) {
+            _testMove = 2;
+            if (GameBoard.gameBoard[_testMove].textContent === '') {
+                _move = 2;
+            }
+        }
+        // Diagonal checks
+        if ((GameBoard.gameBoard[2].value == symbol) && (GameBoard.gameBoard[6].value == symbol)) {
+            _testMove = 4;
+            if (GameBoard.gameBoard[_testMove].textContent === '') {
+                _move = 4;
+            }
+        }
+        if ((GameBoard.gameBoard[2].value == symbol) && (GameBoard.gameBoard[4].value == symbol)) {
+            _testMove = 6;
+            if (GameBoard.gameBoard[_testMove].textContent === '') {
+                _move = 6;
+            }
+        }
+        if ((GameBoard.gameBoard[4].value == symbol) && (GameBoard.gameBoard[6].value == symbol)) {
+            _testMove = 2;
+            if (GameBoard.gameBoard[_testMove].textContent === '') {
+                _move = 2;
+            }
+        }
+        if ((GameBoard.gameBoard[4].value == symbol) && (GameBoard.gameBoard[8].value == symbol)) {
+            _testMove = 0;
+            if (GameBoard.gameBoard[_testMove].textContent === '') {
+                _move = 0;
+            }
+        }
+        if ((GameBoard.gameBoard[0].value == symbol) && (GameBoard.gameBoard[8].value == symbol)) {
+            _testMove = 4;
+            if (GameBoard.gameBoard[_testMove].textContent === '') {
+                _move = 4;
+            }
+        }
+        if ((GameBoard.gameBoard[0].value == symbol) && (GameBoard.gameBoard[4].value == symbol)) {
+            _testMove = 8;
+            if (GameBoard.gameBoard[_testMove].textContent === '') {
+                _move = 8;
+            }
+        }
+
+        // Return where to move if pair found else false
+        if (_move != 'undefined') {
+            return _move;
+        } else {
+            return false;
+        }
+    }
+
     const _checkDraw = () => {
         if (!_resolved) {
             // Check if last square
@@ -262,10 +422,10 @@ const GameController = (() => {
                 _makeAIMoveEasy();
                 break;
             case 'medium':
+                _makeAIMoveMedium();
                 break;
             case 'hard':
-                break;
-            case 'impossible':
+                _makeAIMoveHard();
                 break;
         }
 
@@ -273,6 +433,60 @@ const GameController = (() => {
         _checkVictory();
     }
 
+    // I like the idea of implementing: if it has index 0 and there are no pairs, move into 1, 2, 3, 6, 4 or 8
+    // For now, checks for pairs in which it can win, if not, pairs in which to block, else random
+    const _makeAIMoveHard = () => {
+        let _selectionMade = false;
+        let selection;
+
+        if (_checkPairs(aiPlayer.getSymbol())) {
+            selection = _checkPairs(aiPlayer.getSymbol());
+            DisplayController.aiSelected(GameBoard.gameBoard, selection);
+            GameBoard.setAISelectedValue(selection);
+            _selectionMade = true;
+        } else if (_checkPairs(userPlayer.getSymbol())) {
+            selection = _checkPairs(userPlayer.getSymbol());
+            DisplayController.aiSelected(GameBoard.gameBoard, selection);
+            GameBoard.setAISelectedValue(selection);
+            _selectionMade = true;
+        } else {
+            while (!_selectionMade) {
+                selection = Math.floor(Math.random() * 9);
+                if (GameBoard.gameBoard[selection].textContent === '') {
+                    DisplayController.aiSelected(GameBoard.gameBoard, selection);
+                    GameBoard.setAISelectedValue(selection);
+                    _selectionMade = true;
+                }
+            }
+        }
+    }
+
+
+    // Check if user is close to a victory condition, block if so, else random move
+    const _makeAIMoveMedium = () => {
+        let _selectionMade = false;
+        let selection = _checkPairs(userPlayer.getSymbol());
+
+        if (selection) {
+            // If check pairs returns true, it has found that userPlayer is close to a win,
+            // Move to block the win in the found pair.
+            DisplayController.aiSelected(GameBoard.gameBoard, selection);
+            GameBoard.setAISelectedValue(selection);
+            _selectionMade = true;
+        } else {
+            // Make random move.
+            while (!_selectionMade) {
+                selection = Math.floor(Math.random() * 9);
+                if (GameBoard.gameBoard[selection].textContent === '') {
+                    DisplayController.aiSelected(GameBoard.gameBoard, selection);
+                    GameBoard.setAISelectedValue(selection);
+                    _selectionMade = true;
+                }
+            }
+        }
+    }
+
+    // Random legal move
     const _makeAIMoveEasy = () => {
         // Loop until random lands on a square which hasn't been selected yet.
         let selectionMade = false;
@@ -340,7 +554,7 @@ const Player = (symbol) => {
     }
 };
 
-const difficultySelect = document.getElementById('difficultySelect');
+const difficultySelectOptions = document.querySelectorAll('.difficultyOption');
 const symbolSelectButtons = document.querySelectorAll('.symbolButton');
 
 const userPlayer = Player('X');
@@ -366,4 +580,3 @@ boardSquares.forEach((button) => {
         GameController.squareSelectHandler(button);
     });
 });
-

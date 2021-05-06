@@ -10,7 +10,4 @@ The Odin Project - JavaScript Pathway - Project 2: Tic Tac Toe (Noughts and Cros
 8. Implemented draw display indication, fixed bug on clearing after 'double win'.
 9. Implemented simple animation to help show that an AI move has been made.
 10. Fixed draw bug when AI goes first, refactored to make related logic more reusable. 
-
-TODO: 
-
-. AI difficulties
+11. Implemented crude AI difficulties of Medium and Hard.
